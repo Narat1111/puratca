@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 Christmas Script Viewer</title>
+    <style>
+        /* --- 1. CHRISTMAS CONFIG & VARIABLES --- */
+        :root {
+            --christmas-red: #c41e3a;
+            --christmas-green: #165b33;
+            --christmas-gold: #ffd700;
+            --christmas-white: #f8f9fa;
+            --christmas-dark-red: #8b0000;
+            --christmas-light-green: #2d8659;
+            --primary-gradient: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            --secondary-gradient: linear-gradient(135deg, #165b33 0%, #2d8659 100%);
+            --gold-gradient: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            --glow-color: rgba(196, 30, 58, 0.6);
+            --bg-color: #ffffff;
+            --app-bg: #0f172a;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --snow-white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* --- SNOWFALL ANIMATION --- */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            font-family: Arial, sans-serif;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+            animation: snowfall linear infinite;
+            pointer-events: none;
+            z-index: 1000;
+            user-select: none;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0.8;
+            }
+        }
+
+        /* --- CHRISTMAS LIGHTS DECORATION --- */
+        .christmas-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate;
+        }
+
+        .light:nth-child(odd) {
+            background: var(--christmas-red);
+            box-shadow: 0 0 10px var(--christmas-red);
+        }
+
+        .light:nth-child(even) {
+            background: var(--christmas-green);
+            box-shadow: 0 0 10px var(--christmas-green);
+            animation-delay: 0.75s;
+        }
+
+        .light:nth-child(3n) {
+            background: var(--christmas-gold);
+            box-shadow: 0 0 10px var(--christmas-gold);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* --- 2. CHRISTMAS CARD LAYOUT --- */
+        .card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            display: flex;
+            width: 900px;
+            max-width: 100%;
+            box-shadow:
+                0 20px 60px rgba(196, 30, 58, 0.3),
+                0 0 0 3px var(--christmas-gold),
+                inset 0 0 30px rgba(255, 215, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card::before {
+            content: '🎄';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 40px;
+            z-index: 100;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        .card::after {
+            content: '🎅';
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            font-size: 40px;
+            z-index: 100;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes sway {
+
+            0%,
+            100% {
+                transform: rotate(-5deg);
+            }
+
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow:
+                0 30px 80px rgba(196, 30, 58, 0.4),
+                0 0 0 3px var(--christmas-gold),
+                inset 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+
+        /* --- 3. IMAGE SECTION --- */
+        .card-image-container {
+            width: 320px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            border-right: 3px solid var(--christmas-gold);
+        }
+
+        .card-image-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg,
+                    rgba(196, 30, 58, 0.2) 0%,
+                    rgba(22, 91, 51, 0.2) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            filter: brightness(1.1) saturate(1.2);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        /* --- 4. CONTENT WRAPPER --- */
+        .card-body-wrapper {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            background: linear-gradient(180deg,
+                    rgba(255, 255, 255, 1) 0%,
+                    rgba(255, 248, 240, 1) 100%);
+        }
+
+        /* --- 5. HEADER --- */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 28px;
+            border-bottom: 2px solid var(--christmas-gold);
+            background: linear-gradient(90deg,
+                    rgba(196, 30, 58, 0.05) 0%,
+                    rgba(22, 91, 51, 0.05) 100%);
+            position: relative;
+        }
+
+        .card-header::before {
+            content: '❄️';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            opacity: 0.3;
+            animation: spin 10s linear infinite;
+        }
+
+        .card-header::after {
+            content: '⭐';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            opacity: 0.3;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: translateY(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateY(-50%) rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translateY(-50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateY(-50%) scale(1.2);
+            }
+        }
+
+        .title-group h3 {
+            margin: 0;
+            font-size: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(196, 30, 58, 0.1);
+        }
+
+        .title-group span {
+            font-size: 13px;
+            color: var(--christmas-green);
+            font-weight: 600;
+            background: rgba(22, 91, 51, 0.1);
+            padding: 3px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* Copy Button Style */
+        .btn-copy {
+            background: var(--secondary-gradient);
+            border: 2px solid var(--christmas-gold);
+            padding: 10px 18px;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(22, 91, 51, 0.3);
+        }
+
+        .btn-copy:hover {
+            background: var(--primary-gradient);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(196, 30, 58, 0.4);
+        }
+
+        .btn-copy:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        /* --- 6. CODE AREA --- */
+        .code-content {
+            padding: 28px;
+            background: linear-gradient(135deg, #ffffff 0%, #fffef8 100%);
+            overflow-x: auto;
+            flex-grow: 1;
+            position: relative;
+        }
+
+        .code-content::before {
+            content: '🎁';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 30px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        pre {
+            margin: 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #1f2937;
+            background: linear-gradient(135deg, #fafafa 0%, #fff5f5 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid var(--christmas-gold);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* --- 7. FOOTER --- */
+        .card-footer {
+            padding: 24px 28px;
+            border-top: 2px solid var(--christmas-gold);
+            display: flex;
+            justify-content: flex-end;
+            background: linear-gradient(90deg,
+                    rgba(22, 91, 51, 0.05) 0%,
+                    rgba(196, 30, 58, 0.05) 100%);
+        }
+
+        /* Stylish Christmas Glow Button */
+        .btn-glow {
+            background: var(--primary-gradient);
+            color: white;
+            border: 2px solid var(--christmas-gold);
+            padding: 14px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow:
+                0 6px 20px rgba(196, 30, 58, 0.4),
+                0 0 20px rgba(255, 215, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-glow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-glow:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow:
+                0 12px 35px rgba(196, 30, 58, 0.6),
+                0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-glow:active {
+            transform: scale(0.95);
+        }
+
+        /* Syntax Highlighting - Christmas Colors */
+        .s-func {
+            color: var(--christmas-red);
+            font-weight: 600;
+        }
+
+        .s-prop {
+            color: var(--christmas-green);
+            font-weight: 500;
+        }
+
+        .s-str {
+            color: var(--christmas-dark-red);
+            font-weight: 600;
+        }
+
+        .s-punc {
+            color: #6b7280;
+        }
+
+        /* --- 8. RESPONSIVE (Mobile) --- */
+        @media (max-width: 768px) {
+            .card {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .card-image-container {
+                width: 100%;
+                height: 200px;
+                border-right: none;
+                border-bottom: 3px solid var(--christmas-gold);
+            }
+
+            .card-footer {
+                justify-content: center;
+            }
+
+            .btn-glow {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .card::before,
+            .card::after {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Christmas Lights Decoration -->
+    <div class="christmas-lights" id="christmasLights"></div>
+
+    <div class="card">
+
+        <div class="card-image-container">
+            <img src="images/script.jpg" alt="Script Preview" class="card-image">
+        </div>
+
+        <div class="card-body-wrapper">
+
+            <div class="card-header">
+                <div class="title-group">
+                    <h3>🎄 Script Bloxfruit 🎄</h3>
+                    <span>🎁 Christmas Update</span>
+                </div>
+
+                <button class="btn-copy" id="copyBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copy
+                </button>
+            </div>
+
+            <div class="code-content">
+                <pre
+                    id="codeBlock"><span class="s-func">getgenv</span><span class="s-punc">()</span>.<span class="s-prop">script_key</span> = <span class="s-str">"KEYHERE"</span>;
+<span class="s-func">loadstring</span><span class="s-punc">(</span>game:HttpGet<span class="s-punc">(</span><span class="s-str">"https://raw.githubusercontent.com/JustLevel/goombahub/main/goombahub.lua"</span><span class="s-punc">))()</span></pre>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+    <script>
+        // ===================================
+        // SNOWFALL EFFECT
+        // ===================================
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            snowflake.style.opacity = Math.random();
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        // Create snowflakes periodically
+        setInterval(createSnowflake, 200);
+
+        // ===================================
+        // CHRISTMAS LIGHTS
+        // ===================================
+        const lightsContainer = document.getElementById('christmasLights');
+        for (let i = 0; i < 30; i++) {
+            const light = document.createElement('div');
+            light.classList.add('light');
+            lightsContainer.appendChild(light);
+        }
+
+        // ===================================
+        // COPY BUTTON LOGIC
+        // ===================================
+        const copyBtn = document.getElementById('copyBtn');
+        const codeBlock = document.getElementById('codeBlock');
+
+        copyBtn.addEventListener('click', () => {
+            const textToCopy = codeBlock.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+
+                // Success styling with Christmas theme
+                copyBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffd700" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied! 🎁';
+                copyBtn.style.background = 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)';
+                copyBtn.style.color = '#8b0000';
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.style.background = '';
+                    copyBtn.style.color = '';
+                }, 2000);
+            });
+        });
+
+        // ===================================
+        // PAGE LOAD ANIMATION
+        // ===================================
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.8s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // ===================================
+        // CONSOLE CHRISTMAS MESSAGE
+        // ===================================
+        console.log('%c🎄 Merry Christmas! 🎅', 'font-size: 24px; font-weight: bold; color: #c41e3a; text-shadow: 2px 2px 4px #ffd700;');
+        console.log('%c❄️ Happy Holidays from Script Viewer! ⭐', 'font-size: 16px; color: #165b33;');
+    </script>
+</body>
+
+</html>
