@@ -1,4 +1,25 @@
 // ===================================
+// WELCOME SPLASH SCREEN
+// ===================================
+// Show splash screen for 3 seconds on page load
+window.addEventListener('load', () => {
+    const welcomeSplash = document.getElementById('welcomeSplash');
+
+    if (welcomeSplash) {
+        // After 3 seconds, start fade out animation
+        setTimeout(() => {
+            welcomeSplash.classList.add('fade-out');
+
+            // Remove splash screen from DOM after animation completes
+            setTimeout(() => {
+                welcomeSplash.style.display = 'none';
+                welcomeSplash.remove();
+            }, 800); // Match the fade-out animation duration
+        }, 3000); // 3 seconds display time
+    }
+});
+
+// ===================================
 // MOBILE MENU FUNCTIONALITY
 // ===================================
 const menuBtn = document.getElementById('menuBtn');
