@@ -119,22 +119,13 @@ window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
 
     if (currentScroll <= 0) {
-        header.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
+        header.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.5)';
     } else {
-        header.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.1)';
+        header.style.boxShadow = '0 4px 20px rgba(255, 215, 0, 0.7)';
     }
 
     lastScroll = currentScroll;
 });
-
-// ===================================
-// IMAGES ARE LOADED FROM /images FOLDER
-// ===================================
-// Avatar: images/avatar.jpg
-// Game icons: images/game1.png, images/game2.png
-// Key icons: images/key1.png, images/key2.png
-// Mod icon: images/mod1.png
-// Esign icon: images/esign.png
 
 // ===================================
 // BUTTON CLICK EFFECTS
@@ -181,12 +172,44 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ===================================
+// CHRISTMAS SNOWFALL EFFECT
+// ===================================
+function createSnowflake() {
+    const snowflake = document.createElement('div');
+    snowflake.classList.add('snowflake');
+    snowflake.innerHTML = '❄';
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+    snowflake.style.opacity = Math.random();
+    snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+
+    document.querySelector('.snowfall-container').appendChild(snowflake);
+
+    setTimeout(() => {
+        snowflake.remove();
+    }, 5000);
+}
+
+// Create snowflakes periodically
+setInterval(createSnowflake, 200);
+
+// ===================================
+// CHRISTMAS LIGHTS
+// ===================================
+const lightsContainer = document.querySelector('.christmas-lights');
+for (let i = 0; i < 30; i++) {
+    const light = document.createElement('div');
+    light.classList.add('light');
+    lightsContainer.appendChild(light);
+}
+
+// ===================================
 // LOADING ANIMATION
 // ===================================
 window.addEventListener('load', () => {
     document.body.style.opacity = '0';
     setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.transition = 'opacity 0.8s ease';
         document.body.style.opacity = '1';
     }, 100);
 });
@@ -200,21 +223,22 @@ footerItems.forEach(item => {
     item.addEventListener('click', function () {
         const text = this.querySelector('p').textContent;
 
-        // Create a simple notification
+        // Create a Christmas notification
         const notification = document.createElement('div');
-        notification.textContent = `Clicked: ${text}`;
+        notification.textContent = `🎄 ${text} 🎄`;
         notification.style.cssText = `
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #4A90E2, #5BA3F5);
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 32px rgba(196, 30, 58, 0.4), 0 0 20px rgba(255, 215, 0, 0.5);
             z-index: 3000;
             animation: slideInUp 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
+            border: 2px solid #ffd700;
         `;
 
         document.body.appendChild(notification);
@@ -288,16 +312,55 @@ if ('IntersectionObserver' in window) {
 }
 
 // ===================================
-// CONSOLE EASTER EGG
+// CHRISTMAS CURSOR TRAIL (STARS)
 // ===================================
-console.log('%c👋 Hello Developer!', 'font-size: 20px; font-weight: bold; color: #4A90E2;');
-console.log('%cWelcome to Văn Thông iOS Profile Page', 'font-size: 14px; color: #6B7280;');
-console.log('%cBuilt with ❤️ using HTML, CSS, and JavaScript', 'font-size: 12px; color: #9CA3AF;');
+document.addEventListener('mousemove', (e) => {
+    if (Math.random() > 0.9) { // Only create sometimes to avoid performance issues
+        const star = document.createElement('div');
+        star.textContent = '⭐';
+        star.style.cssText = `
+            position: fixed;
+            left: ${e.clientX}px;
+            top: ${e.clientY}px;
+            font-size: 12px;
+            pointer-events: none;
+            z-index: 9999;
+            animation: starFade 1s ease-out forwards;
+        `;
+        document.body.appendChild(star);
+
+        setTimeout(() => star.remove(), 1000);
+    }
+});
+
+// Add star fade animation
+const starStyle = document.createElement('style');
+starStyle.textContent = `
+    @keyframes starFade {
+        0% {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+        100% {
+            opacity: 0;
+            transform: scale(0) translateY(-30px);
+        }
+    }
+`;
+document.head.appendChild(starStyle);
+
+// ===================================
+// CONSOLE CHRISTMAS MESSAGE
+// ===================================
+console.log('%c🎄 Merry Christmas! 🎅', 'font-size: 24px; font-weight: bold; color: #c41e3a; text-shadow: 2px 2px 4px #ffd700;');
+console.log('%c❄️ Welcome to Purat\'s Christmas Profile Page! ⭐', 'font-size: 16px; color: #165b33; font-weight: bold;');
+console.log('%c🎁 Built with ❤️ using HTML, CSS, and JavaScript 🎁', 'font-size: 14px; color: #ffd700;');
 
 // ===================================
 // INITIALIZE
 // ===================================
-console.log('✅ Script loaded successfully');
-console.log('🎨 Animations initialized');
+console.log('🎄 Christmas theme loaded successfully');
+console.log('❄️ Snowfall animations initialized');
+console.log('⭐ Christmas lights twinkling');
 console.log('📱 Mobile menu ready');
-console.log('🚀 All systems operational');
+console.log('🎅 All systems operational - Happy Holidays!');
