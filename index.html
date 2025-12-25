@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purat Site - Premium Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:3000; justify-content:center; align-items:center;">
+        <div class="spinner"
+            style="width:50px; height:50px; border:4px solid #3b82f6; border-top-color:transparent; border-radius:50%; animation:spin 1s linear infinite;">
+        </div>
+    </div>
+    <style>
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <nav id="navbar">
+        <div class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-desktop" style="color:white"></i></div>
+            <span class="kh-text">RITHSTORE</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home" class="kh-text">ទំព័រដើម</a></li>
+            <li><a href="#products" class="kh-text">ទំនិញ</a></li>
+            <li><a href="#contact" class="kh-text">ទំនាក់ទំនង</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <div class="cart-btn-wrapper" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-badge" id="cartCount">0</div>
+            </div>
+            <div style="width: 10px;"></div>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fa-solid fa-bars"></i></div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <div class="mobile-menu-content">
+                <div class="mobile-menu-header">
+                    <div class="logo">
+                        <div class="logo-icon"><i class="fa-solid fa-desktop" style="color:white"></i></div>
+                        <span class="kh-text">PURAT SITE</span>
+                    </div>
+                    <div class="close-mobile-menu" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-times"></i>
+                    </div>
+                </div>
+                <ul class="mobile-nav-links">
+                    <li><a href="#home" class="kh-text" onclick="toggleMobileMenu()">ទំព័រដើម</a></li>
+                    <li><a href="#products" class="kh-text" onclick="toggleMobileMenu()">ទំនិញ</a></li>
+                    <li><a href="#contact" class="kh-text" onclick="toggleMobileMenu()">ទំនាក់ទំនង</a></li>
+                </ul>
+                <div class="mobile-cart-section">
+                    <div class="cart-btn-wrapper" onclick="toggleCart(); toggleMobileMenu();">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <div class="cart-badge" id="mobileCartCount">0</div>
+                        <span class="cart-text">កន្រ្តកទំនិញ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <span class="cart-title kh-text">
+                <i class="fa-solid fa-cart-shopping"></i> កន្រ្តកទំនិញ
+            </span>
+            <i class="fa-solid fa-xmark close-cart" style="font-size:1.5rem; cursor:pointer;"
+                onclick="toggleCart()"></i>
+        </div>
+        <div class="cart-items" id="cartItemsContainer"></div>
+        <div class="cart-footer">
+            <div class="cart-total"
+                style="display:flex; justify-content:space-between; font-size:1.4rem; font-weight:bold; margin-bottom:15px;">
+                <span class="kh-text">សរុប:</span>
+                <span id="cartTotalDisplay">$0.00</span>
+            </div>
+            <button class="btn-checkout-side kh-text" onclick="proceedToCheckout()">
+                <i class="fa-solid fa-credit-card"></i> ទូទាត់ប្រាក់
+            </button>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div style="margin-bottom: 30px;">
+            <span class="kh-text"
+                style="background:linear-gradient(135deg, rgba(30,41,59,0.9), rgba(15,23,42,0.9)); border:1px solid rgba(59,130,246,0.4); padding:12px 28px; border-radius:50px; font-size:0.95rem; color:#60a5fa; font-weight:800; display:inline-flex; align-items:center; gap:10px;">
+                <i class="fa-solid fa-bolt" style="color:#fbbf24;"></i> Cambodia's #1 Digital Store
+            </span>
+        </div>
+        <h1>Premium <span style="color:#3b82f6;">Digital</span><br>Products</h1>
+        <p class="hero-subtitle kh-text">កម្មវិធីនិងគណនី Premium គុណភាពខ្ពស់ តម្លៃសមរម្យ</p>
+
+        <!-- Stats Section -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-box-open"></i></div>
+                <div class="stat-number" data-target="9">0</div>
+                <div class="stat-label kh-text">Products</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-shopping-bag"></i></div>
+                <div class="stat-number" data-target="107">0</div>
+                <div class="stat-label kh-text">Orders</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-headset"></i></div>
+                <div class="stat-number-text">24/7</div>
+                <div class="stat-label kh-text">Support</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section" id="products">
+        <div class="section-header">
+            <h2>Our Premium Products</h2>
+            <p class="kh-text">ជ្រើសរើសទំនិញ Digital ដែលអ្នកចង់បាន</p>
+        </div>
+        <div class="products-grid" id="productGrid">
+            <!-- Product 1: CyberGhost VPN -->
+            <div class="card theme-yellow">
+                <div class="card-header">
+                    <img src="images/cyberghost.png" alt="Cyberghost VPN" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Cyberghost Vpn - 1 Year</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$5.00</div>
+                        <button class="btn-add-cart" onclick="addToCart(1)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2: VPS Ubuntu -->
+            <div class="card theme-orange">
+                <div class="card-header">
+                    <img src="images/vps_ubuntu.png" alt="VPS Ubuntu 24.04 LTS" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">VPS Ubuntu 24.04 LTS</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$8.00</div>
+                        <button class="btn-add-cart" onclick="addToCart(2)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3: Spotify Premium -->
+            <div class="card theme-purple">
+                <div class="card-header">
+                    <img src="images/spotify.png" alt="Spotify Premium" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Spotify Premium</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$2.50</div>
+                        <button class="btn-add-cart" onclick="addToCart(3)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4: Netflix 4K -->
+            <div class="card theme-pink">
+                <div class="card-header">
+                    <img src="images/netflix.png" alt="Netflix 4K Shared" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Netflix 4K Shared</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$3.50</div>
+                        <button class="btn-add-cart" onclick="addToCart(4)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5: Canva Pro -->
+            <div class="card theme-blue">
+                <div class="card-header">
+                    <img src="images/canva.png" alt="Canva Pro Lifetime" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Canva Pro Lifetime</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$4.00</div>
+                        <button class="btn-add-cart" onclick="addToCart(5)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6: Youtube Premium -->
+            <div class="card theme-orange">
+                <div class="card-header">
+                    <img src="images/youtube.png" alt="Youtube Premium" class="product-image">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Youtube Premium</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$2.00</div>
+                        <button class="btn-add-cart" onclick="addToCart(6)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7: ChatGPT Plus -->
+            <div class="card theme-yellow">
+                <div class="card-header">
+                    <div class="logo-circle"><i class="fa-solid fa-robot"></i></div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">ChatGPT Plus</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$6.50</div>
+                        <button class="btn-add-cart" onclick="addToCart(7)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8: Adobe Creative Cloud -->
+            <div class="card theme-blue">
+                <div class="card-header">
+                    <div class="logo-circle"><i class="fa-brands fa-adobe"></i></div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <h3 style="margin-bottom:10px; font-size:1.2rem;">Adobe Creative Cloud</h3>
+                        <div style="font-size:0.85rem; color:#94a3b8; margin-bottom:15px;" class="kh-text">ទំនិញ Digital
+                            គុណភាពខ្ពស់</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div style="font-size:1.6rem; font-weight:900; color:#3b82f6;">$7.00</div>
+                        <button class="btn-add-cart" onclick="addToCart(8)"><i class="fa-solid fa-plus"></i> <span
+                                class="kh-text">បន្ថែម</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact"
+        style="padding: 60px 20px; background: #0f121a; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;">
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <h2 class="kh-text"
+                style="margin-bottom: 20px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                ទំនាក់ទំនង (Contact Us)</h2>
+            <div style="display: flex; justify-content: center; gap: 20px; font-size: 1.5rem; margin-bottom: 30px;">
+                <a href="#" style="color: #3b82f6;"><i class="fa-brands fa-telegram"></i></a>
+                <a href="#" style="color: #1877f2;"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" style="color: #e1306c;"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+            <p style="color: #94a3b8;" class="kh-text">© 2025 Purat Site - Premium Digital Products. All rights
+                reserved.</p>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-left">
+                <div class="section-title kh-text" style="font-size:1.5rem; font-weight:bold; margin-bottom:20px;">
+                    <i class="fa-solid fa-receipt"></i> វិក្កយបត្រ (Order Summary)
+                </div>
+                <div class="order-list" id="checkoutOrderList"></div>
+                <div class="total-row"
+                    style="margin-top:20px; border-top:1px solid rgba(255,255,255,0.1); padding-top:20px;">
+                    <span class="total-label kh-text">ទឹកប្រាក់សរុប: </span>
+                    <span class="total-amount" id="checkoutTotal" style="font-size:1.5rem; color:#10b981;">$0.00</span>
+                </div>
+            </div>
+
+            <div class="modal-right">
+                <div class="section-title kh-text" style="font-size:1.5rem; font-weight:bold; margin-bottom:20px;">
+                    <i class="fa-solid fa-qrcode"></i> ស្កេនដើម្បីបង់ប្រាក់
+                </div>
+
+                <!-- Dual QR Code Section -->
+                <div class="qr-tabs">
+                    <button class="qr-tab active" onclick="switchQR('usd')" id="tabUSD">
+                        <i class="fa-solid fa-dollar-sign"></i> USD
+                    </button>
+                    <button class="qr-tab" onclick="switchQR('khr')" id="tabKHR">
+                        <span style="font-weight:800;">៛</span> KHR
+                    </button>
+                </div>
+
+                <div class="qr-section" id="qrUSD">
+                    <div class="qr-bank-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/ACLEDA_Bank_logo.svg/200px-ACLEDA_Bank_logo.svg.png"
+                            alt="ACLEDA" style="height:35px;">
+                    </div>
+                    <div class="qr-section-title">KHQR - USD Account</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021129460016purat_site_acleda_usd0109ACLEDA00021USD&format=png"
+                        class="qr-img" alt="KHQR USD">
+                    <div class="qr-currency-badge usd"><i class="fa-solid fa-dollar-sign"></i> US Dollar</div>
+                </div>
+
+                <div class="qr-section" id="qrKHR" style="display:none;">
+                    <div class="qr-bank-logo">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/ACLEDA_Bank_logo.svg/200px-ACLEDA_Bank_logo.svg.png"
+                            alt="ACLEDA" style="height:35px;">
+                    </div>
+                    <div class="qr-section-title">KHQR - KHR Account</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021129460016purat_site_acleda_khr0109ACLEDA00021KHR&format=png"
+                        class="qr-img" alt="KHQR KHR">
+                    <div class="qr-currency-badge khr"><span style="font-weight:800;">៛</span> Khmer Riel</div>
+                </div>
+
+                <div class="telegram-input">
+                    <label class="kh-text"><i class="fa-brands fa-telegram"></i> ឈ្មោះ Telegram</label>
+                    <input type="text" id="telegramUsername" placeholder="@yourusername" oninput="validateCheckout()">
+                </div>
+                <br>
+
+                <div class="payment-options">
+                    <div class="upload-compact" onclick="document.getElementById('fileInput').click()">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> <span id="uploadText"
+                            class="kh-text">បញ្ចូលវិក្កយបត្រ (Upload)</span>
+                        <input type="file" id="fileInput" hidden accept="image/*" onchange="handleFileSelect(this)">
+                    </div>
+
+                    <div class="sent-to-bot-btn kh-text" onclick="sendPaymentToBot()">
+                        <i class="fa-solid fa-paper-plane"></i> ទូទាត់ Sent to Bot
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-modal btn-cancel kh-text" onclick="closeModal()">បោះបង់</button>
+                    <button class="btn-modal btn-confirm kh-text" id="confirmBtn"
+                        onclick="finishPurchase()">ទូទាត់</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
